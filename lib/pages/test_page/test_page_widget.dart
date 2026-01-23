@@ -61,9 +61,15 @@ class _TestPageWidgetState extends State<TestPageWidget> {
 
       _model.getOnboardingOutput = await GetOnboadingUrlAPICall.call();
 
-      final streamingApiResult = await StreamBlockfinAPICall.call();
-      if (streamingApiResult.succeeded ?? true) {
-        final streamSubscription = streamingApiResult.streamedResponse?.stream
+      _model.listenOcrResult = await StreamBlockfinAPICall.call(
+        refId: '${getJsonField(
+          (_model.getOnboardingOutput?.jsonBody ?? ''),
+          r'''$.data.refId''',
+        ).toString()}',
+      );
+      if (_model.listenOcrResult?.succeeded ?? true) {
+        final streamSubscription = _model
+            .listenOcrResult?.streamedResponse?.stream
             .transform(utf8.decoder)
             .transform(const LineSplitter())
             .transform(ServerSentEventLineTransformer())

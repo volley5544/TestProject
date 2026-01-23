@@ -8,6 +8,8 @@ class TestPageModel extends FlutterFlowModel<TestPageWidget> {
 
   // Stores action output result for [Backend Call - API (getOnboadingUrlAPI)] action in TestPage widget.
   ApiCallResponse? getOnboardingOutput;
+  // Stores action output result for [Backend Call - API (streamBlockfinAPI)] action in TestPage widget.
+  ApiCallResponse? listenOcrResult;
 
   @override
   void initState(BuildContext context) {}

@@ -133,14 +133,18 @@ class CheckinStreamAPICall {
 }
 
 class StreamBlockfinAPICall {
-  static Future<ApiCallResponse> call() async {
+  static Future<ApiCallResponse> call({
+    String? refId = '',
+  }) async {
     return ApiManager.instance.makeApiCall(
       callName: 'streamBlockfinAPI',
       apiUrl:
           'https://dfeb1281ab00.ngrok-free.app/api/stream/v1/stream/blockfin',
       callType: ApiCallType.GET,
       headers: {},
-      params: {},
+      params: {
+        'sessionId': refId,
+      },
       returnBody: true,
       encodeBodyUtf8: false,
       decodeUtf8: false,
