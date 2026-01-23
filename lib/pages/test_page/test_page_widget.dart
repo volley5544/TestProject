@@ -92,8 +92,38 @@ class _TestPageWidgetState extends State<TestPageWidget> {
               },
             );
           },
-          onError: (onErrorInput) async {},
-          onDone: () async {},
+          onError: (onErrorInput) async {
+            await showDialog(
+              context: context,
+              builder: (alertDialogContext) {
+                return AlertDialog(
+                  content: Text('error stream'),
+                  actions: [
+                    TextButton(
+                      onPressed: () => Navigator.pop(alertDialogContext),
+                      child: Text('Ok'),
+                    ),
+                  ],
+                );
+              },
+            );
+          },
+          onDone: () async {
+            await showDialog(
+              context: context,
+              builder: (alertDialogContext) {
+                return AlertDialog(
+                  content: Text('close connection'),
+                  actions: [
+                    TextButton(
+                      onPressed: () => Navigator.pop(alertDialogContext),
+                      child: Text('Ok'),
+                    ),
+                  ],
+                );
+              },
+            );
+          },
         );
       }
 
