@@ -165,7 +165,8 @@ class GetOnboadingUrlAPICall {
   static Future<ApiCallResponse> call() async {
     return ApiManager.instance.makeApiCall(
       callName: 'getOnboadingUrlAPI',
-      apiUrl: 'https://28fb0b28bf02.ngrok-free.app/api/v1/verify/customer',
+      apiUrl:
+          'https://28fb0b28bf02.ngrok-free.app/api/blockfin/v1/get/onboarding',
       callType: ApiCallType.POST,
       headers: {},
       params: {},
