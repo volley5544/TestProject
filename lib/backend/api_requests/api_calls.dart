@@ -112,7 +112,7 @@ class CheckinStreamAPICall {
   static Future<ApiCallResponse> call() async {
     return ApiManager.instance.makeApiCall(
       callName: 'checkinStreamAPI',
-      apiUrl: 'https://dfeb1281ab00.ngrok-free.app/api/v1/stream/checkin',
+      apiUrl: 'https://28fb0b28bf02.ngrok-free.app/api/v1/stream/checkin',
       callType: ApiCallType.GET,
       headers: {},
       params: {},
@@ -139,7 +139,7 @@ class StreamBlockfinAPICall {
     return ApiManager.instance.makeApiCall(
       callName: 'streamBlockfinAPI',
       apiUrl:
-          'https://dfeb1281ab00.ngrok-free.app/api/stream/v1/stream/blockfin',
+          'https://28fb0b28bf02.ngrok-free.app/api/stream/v1/stream/blockfin',
       callType: ApiCallType.GET,
       headers: {},
       params: {
@@ -165,7 +165,7 @@ class GetOnboadingUrlAPICall {
   static Future<ApiCallResponse> call() async {
     return ApiManager.instance.makeApiCall(
       callName: 'getOnboadingUrlAPI',
-      apiUrl: 'https://dfeb1281ab00.ngrok-free.app/api/v1/verify/customer',
+      apiUrl: 'https://28fb0b28bf02.ngrok-free.app/api/v1/verify/customer',
       callType: ApiCallType.POST,
       headers: {},
       params: {},
