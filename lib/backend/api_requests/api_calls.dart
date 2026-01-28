@@ -167,6 +167,7 @@ class GetOnboadingUrlAPICall {
     String? successUrl = '',
     String? errorUrl = '',
     List<String>? ekycFlowsList,
+    String? projectName = '',
   }) async {
     final ekycFlows = _serializeList(ekycFlowsList);
 
@@ -175,7 +176,8 @@ class GetOnboadingUrlAPICall {
   "customerId": "${escapeStringForJson(customerId)}",
   "successUrl": "${escapeStringForJson(successUrl)}",
   "errorUrl": "${escapeStringForJson(errorUrl)}",
-  "ekycFlows": ${ekycFlows}
+  "ekycFlows": ${ekycFlows},
+  "projectName": "${escapeStringForJson(projectName)}"
 }''';
     return ApiManager.instance.makeApiCall(
       callName: 'getOnboadingUrlAPI',

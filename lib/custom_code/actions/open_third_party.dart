@@ -9,9 +9,9 @@ import 'package:flutter/material.dart';
 // Begin custom action code
 // DO NOT REMOVE OR MODIFY THE CODE ABOVE!
 
-import 'package:web/web.dart' as web;
+// import 'package:web/web.dart' as web;
 
 Future openThirdParty(String? url) async {
   // Add your function code here!
-  web.window.location.href = url!;
+  // web.window.location.href = url!;
 }

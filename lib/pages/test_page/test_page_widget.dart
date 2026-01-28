@@ -72,6 +72,7 @@ class _TestPageWidgetState extends State<TestPageWidget> {
           'liveness',
           'thaid'
         ],
+        projectName: 'DirectSales',
       );
 
       _model.listenOcrResult = await StreamBlockfinAPICall.call(
