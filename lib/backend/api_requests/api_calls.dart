@@ -112,7 +112,7 @@ class CheckinStreamAPICall {
   static Future<ApiCallResponse> call() async {
     return ApiManager.instance.makeApiCall(
       callName: 'checkinStreamAPI',
-      apiUrl: 'https://28fb0b28bf02.ngrok-free.app/api/v1/stream/checkin',
+      apiUrl: 'https://2939fba48e0f.ngrok-free.app/api/v1/stream/checkin',
       callType: ApiCallType.GET,
       headers: {},
       params: {},
@@ -139,7 +139,7 @@ class StreamBlockfinAPICall {
     return ApiManager.instance.makeApiCall(
       callName: 'streamBlockfinAPI',
       apiUrl:
-          'https://28fb0b28bf02.ngrok-free.app/api/stream/v1/stream/blockfin',
+          'https://2939fba48e0f.ngrok-free.app/api/stream/v1/stream/blockfin',
       callType: ApiCallType.GET,
       headers: {},
       params: {
@@ -162,14 +162,29 @@ class StreamBlockfinAPICall {
 }
 
 class GetOnboadingUrlAPICall {
-  static Future<ApiCallResponse> call() async {
+  static Future<ApiCallResponse> call({
+    String? customerId = '',
+    String? successUrl = '',
+    String? errorUrl = '',
+    List<String>? ekycFlowsList,
+  }) async {
+    final ekycFlows = _serializeList(ekycFlowsList);
+
+    final ffApiRequestBody = '''
+{
+  "customerId": "${escapeStringForJson(customerId)}",
+  "successUrl": "${escapeStringForJson(successUrl)}",
+  "errorUrl": "${escapeStringForJson(errorUrl)}",
+  "ekycFlows": ${ekycFlows}
+}''';
     return ApiManager.instance.makeApiCall(
       callName: 'getOnboadingUrlAPI',
       apiUrl:
-          'https://28fb0b28bf02.ngrok-free.app/api/blockfin/v1/get/onboarding',
+          'https://2939fba48e0f.ngrok-free.app/api/blockfin/v1/get/onboarding',
       callType: ApiCallType.POST,
       headers: {},
       params: {},
+      body: ffApiRequestBody,
       bodyType: BodyType.JSON,
       returnBody: true,
       encodeBodyUtf8: false,
@@ -179,6 +194,30 @@ class GetOnboadingUrlAPICall {
       alwaysAllowBody: false,
     );
   }
+
+  static String? statusLayer1(dynamic response) =>
+      castToType<String>(getJsonField(
+        response,
+        r'''$.status''',
+      ));
+  static String? messageLayer1(dynamic response) =>
+      castToType<String>(getJsonField(
+        response,
+        r'''$.message''',
+      ));
+  static dynamic dataJson(dynamic response) => getJsonField(
+        response,
+        r'''$.data''',
+      );
+  static String? refId(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.data.refId''',
+      ));
+  static String? onboardingUrl(dynamic response) =>
+      castToType<String>(getJsonField(
+        response,
+        r'''$.data.onboardingUrl''',
+      ));
 }
 
 class ApiPagingParams {

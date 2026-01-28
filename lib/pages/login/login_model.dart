@@ -1,4 +1,5 @@
 import '/backend/api_requests/api_calls.dart';
+import '/backend/supabase/supabase.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/index.dart';
 import 'login_widget.dart' show LoginWidget;
@@ -18,6 +19,8 @@ class LoginModel extends FlutterFlowModel<LoginWidget> {
   String? Function(BuildContext, String?)? passwordTextControllerValidator;
   // Stores action output result for [Backend Call - API (loginAPI)] action in Button widget.
   ApiCallResponse? loginApiOurput;
+  // Stores action output result for [Backend Call - Insert Row] action in Button widget.
+  ProfilesRow? insertProfile;
 
   @override
   void initState(BuildContext context) {
