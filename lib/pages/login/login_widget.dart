@@ -1,8 +1,7 @@
-import '/auth/firebase_auth/auth_util.dart';
+import '/backend/api_requests/api_calls.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
-import '/index.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -465,22 +464,45 @@ class _LoginWidgetState extends State<LoginWidget> {
                                         0.0, 0.0, 0.0, 16.0),
                                     child: FFButtonWidget(
                                       onPressed: () async {
-                                        GoRouter.of(context).prepareAuthEvent();
-
-                                        final user =
-                                            await authManager.signInWithEmail(
-                                          context,
-                                          _model
+                                        var _shouldSetState = false;
+                                        _model.loginApiOurput =
+                                            await LoginAPICall.call(
+                                          username: _model
                                               .emailAddressTextController.text,
-                                          _model.passwordTextController.text,
+                                          password: _model
+                                              .passwordTextController.text,
+                                          fcmToken: 'qqqqqqqqq',
+                                          uid: 'wwwwwwwwww',
+                                          check: 'Y',
                                         );
-                                        if (user == null) {
+
+                                        _shouldSetState = true;
+                                        if ((_model.loginApiOurput
+                                                    ?.statusCode ??
+                                                200) !=
+                                            200) {
+                                          await showDialog(
+                                            context: context,
+                                            builder: (alertDialogContext) {
+                                              return AlertDialog(
+                                                content: Text('rip'),
+                                                actions: [
+                                                  TextButton(
+                                                    onPressed: () =>
+                                                        Navigator.pop(
+                                                            alertDialogContext),
+                                                    child: Text('Ok'),
+                                                  ),
+                                                ],
+                                              );
+                                            },
+                                          );
+                                          if (_shouldSetState)
+                                            safeSetState(() {});
                                           return;
                                         }
-
-                                        context.goNamedAuth(
-                                            HomePageWidget.routeName,
-                                            context.mounted);
+                                        if (_shouldSetState)
+                                          safeSetState(() {});
                                       },
                                       text: 'Sign In',
                                       options: FFButtonOptions(
