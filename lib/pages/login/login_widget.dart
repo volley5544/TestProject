@@ -1,6 +1,5 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/api_requests/api_calls.dart';
-import '/backend/supabase/supabase.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
@@ -504,21 +503,6 @@ class _LoginWidgetState extends State<LoginWidget> {
                                             safeSetState(() {});
                                           return;
                                         }
-                                        _model.insertRowSupabase =
-                                            await ProfilesTable().insert({
-                                          'username': _model
-                                              .emailAddressTextController.text,
-                                          'display_name': _model
-                                              .emailAddressTextController.text,
-                                          'avatar_url':
-                                              'https://firebasestorage.googleapis.com/v0/b/flut-flow-test.appspot.com/o/No_image_available.png?alt=media&token=3adb9366-1983-4d88-93f9-d0bd031005fc',
-                                          'last_seen_at':
-                                              supaSerialize<DateTime>(
-                                                  getCurrentTimestamp),
-                                          'created_at': supaSerialize<DateTime>(
-                                              getCurrentTimestamp),
-                                        });
-                                        _shouldSetState = true;
                                         GoRouter.of(context).prepareAuthEvent();
 
                                         final user =
