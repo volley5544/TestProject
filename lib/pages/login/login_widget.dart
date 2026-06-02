@@ -1,3 +1,4 @@
+import '/auth/firebase_auth/auth_util.dart';
 import '/backend/api_requests/api_calls.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -502,9 +503,16 @@ class _LoginWidgetState extends State<LoginWidget> {
                                             safeSetState(() {});
                                           return;
                                         }
+                                        GoRouter.of(context).prepareAuthEvent();
+                                        final user = await authManager
+                                            .signInAnonymously(context);
+                                        if (user == null) {
+                                          return;
+                                        }
 
-                                        context.pushNamed(
-                                            HomePageWidget.routeName);
+                                        context.goNamedAuth(
+                                            HomePageWidget.routeName,
+                                            context.mounted);
 
                                         if (_shouldSetState)
                                           safeSetState(() {});
