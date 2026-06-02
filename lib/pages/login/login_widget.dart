@@ -319,8 +319,6 @@ class _LoginWidgetState extends State<LoginWidget> {
                                                       .bodyLarge
                                                       .fontStyle,
                                             ),
-                                        keyboardType:
-                                            TextInputType.emailAddress,
                                         validator: _model
                                             .emailAddressTextControllerValidator
                                             .asValidator(context),
