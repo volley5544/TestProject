@@ -20,7 +20,7 @@ class LoginModel extends FlutterFlowModel<LoginWidget> {
   // Stores action output result for [Backend Call - API (loginAPI)] action in Button widget.
   ApiCallResponse? loginApiOurput;
   // Stores action output result for [Backend Call - Insert Row] action in Button widget.
-  ProfilesRow? insertProfile;
+  ProfilesRow? insertRowSupabase;
 
   @override
   void initState(BuildContext context) {

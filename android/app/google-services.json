@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "947510388519",
+    "project_id": "test-project-biclc3",
+    "storage_bucket": "test-project-biclc3.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:947510388519:android:40f38c23cdd8efc7bceb02",
+        "android_client_info": {
+          "package_name": "com.mycompany.testproject"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDeO2vWHhYX04RY9tlHe1LRoeHKicGCVvU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

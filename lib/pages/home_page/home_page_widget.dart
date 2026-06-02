@@ -1,19 +1,12 @@
-import '/auth/custom_auth/auth_util.dart';
-import '/backend/api_requests/api_calls.dart';
-import '/backend/api_requests/api_manager.dart';
-import '/backend/api_requests/api_streaming.dart';
-import '/backend/schema/structs/index.dart';
 import '/components/loading_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/upload_data.dart';
-import 'dart:convert';
 import '/flutter_flow/custom_functions.dart' as functions;
 import '/index.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'home_page_model.dart';
 export 'home_page_model.dart';
 
@@ -39,7 +32,6 @@ class _HomePageWidgetState extends State<HomePageWidget> {
 
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
-      Function() _navigate = () {};
       showDialog(
         context: context,
         builder: (dialogContext) {
@@ -60,112 +52,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
         },
       );
 
-      _model.userProfileApiOutput = await UserProfileAPICall.call(
-        token: currentAuthenticationToken,
-        project: 'SSW_ARUNSAWAD_API',
-      );
-
-      if ((_model.userProfileApiOutput?.statusCode ?? 200) == 200) {
-        FFAppState().debugText = 'volley5544';
-        safeSetState(() {});
-      } else {
-        Navigator.pop(context);
-        await showDialog(
-          context: context,
-          builder: (alertDialogContext) {
-            return AlertDialog(
-              content: Text('session หมดอายุ'),
-              actions: [
-                TextButton(
-                  onPressed: () => Navigator.pop(alertDialogContext),
-                  child: Text('Ok'),
-                ),
-              ],
-            );
-          },
-        );
-        GoRouter.of(context).prepareAuthEvent();
-        await authManager.signOut();
-        GoRouter.of(context).clearRedirectLocation();
-
-        _navigate =
-            () => context.goNamedAuth(LoginWidget.routeName, context.mounted);
-
-        _navigate();
-        return;
-      }
-
-      _model.checkinStreamApiOutput = await CheckinStreamAPICall.call();
-      if (_model.checkinStreamApiOutput?.succeeded ?? true) {
-        final streamSubscription = _model
-            .checkinStreamApiOutput?.streamedResponse?.stream
-            .transform(utf8.decoder)
-            .transform(const LineSplitter())
-            .transform(ServerSentEventLineTransformer())
-            .map((m) => ResponseStreamMessage(message: m))
-            .listen(
-          (onMessageInput) async {
-            _model.checkinData = CheckinDataModelStruct(
-              time: '${getJsonField(
-                onMessageInput.serverSentEvent.jsonData,
-                r'''$.time''',
-              ).toString()}',
-              count: getJsonField(
-                onMessageInput.serverSentEvent.jsonData,
-                r'''$.count''',
-              ),
-            );
-            safeSetState(() {});
-          },
-          onError: (onErrorInput) async {
-            await showDialog(
-              context: context,
-              builder: (alertDialogContext) {
-                return AlertDialog(
-                  content: Text('error'),
-                  actions: [
-                    TextButton(
-                      onPressed: () => Navigator.pop(alertDialogContext),
-                      child: Text('Ok'),
-                    ),
-                  ],
-                );
-              },
-            );
-          },
-          onDone: () async {
-            await Future.delayed(
-              Duration(
-                milliseconds: 5000,
-              ),
-            );
-            await showDialog(
-              context: context,
-              builder: (alertDialogContext) {
-                return AlertDialog(
-                  content: Text('close'),
-                  actions: [
-                    TextButton(
-                      onPressed: () => Navigator.pop(alertDialogContext),
-                      child: Text('Ok'),
-                    ),
-                  ],
-                );
-              },
-            );
-          },
-        );
-        // Add the subscription to the active streaming response subscriptions
-        // in API Manager so that it can be cancelled at a later time.
-        ApiManager.instance.addActiveStreamingResponseSubscription(
-          '1',
-          streamSubscription,
-        );
-      }
-
       Navigator.pop(context);
-
-      _navigate();
     });
 
     WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
@@ -180,8 +67,6 @@ class _HomePageWidgetState extends State<HomePageWidget> {
 
   @override
   Widget build(BuildContext context) {
-    context.watch<FFAppState>();
-
     return Builder(
       builder: (context) => GestureDetector(
         onTap: () {
@@ -203,7 +88,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                 context.pushNamed(TestPageWidget.routeName);
               },
               child: Text(
-                '${currentUserData?.fullname} (${currentUserData?.employeeId})',
+                '',
                 style: FlutterFlowTheme.of(context).headlineMedium.override(
                       font: GoogleFonts.interTight(
                         fontWeight: FlutterFlowTheme.of(context)
@@ -235,7 +120,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                 mainAxisSize: MainAxisSize.max,
                 children: [
                   Text(
-                    '${currentAuthenticationToken}',
+                    '',
                     style: FlutterFlowTheme.of(context).bodyMedium.override(
                           font: GoogleFonts.inter(
                             fontWeight: FlutterFlowTheme.of(context)

@@ -1,5 +1,4 @@
-import '/backend/api_requests/api_calls.dart';
-import '/backend/api_requests/api_manager.dart';
+import '/backend/backend.dart';
 import '/backend/schema/structs/index.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/index.dart';
@@ -18,10 +17,6 @@ class HomePageModel extends FlutterFlowModel<HomePageWidget> {
 
   ///  State fields for stateful widgets in this page.
 
-  // Stores action output result for [Backend Call - API (userProfileAPI)] action in HomePage widget.
-  ApiCallResponse? userProfileApiOutput;
-  // Stores action output result for [Backend Call - API (checkinStreamAPI)] action in HomePage widget.
-  ApiCallResponse? checkinStreamApiOutput;
   bool isDataUploading_uploadDataXwk = false;
   FFUploadedFile uploadedLocalFile_uploadDataXwk =
       FFUploadedFile(bytes: Uint8List.fromList([]), originalFilename: '');

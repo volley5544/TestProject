@@ -1,16 +1,19 @@
 // ignore_for_file: unnecessary_getters_setters
 
-import '/backend/schema/util/schema_util.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
-import 'index.dart';
+import '/backend/schema/util/firestore_util.dart';
+
 import '/flutter_flow/flutter_flow_util.dart';
 
-class CheckinDataModelStruct extends BaseStruct {
+class CheckinDataModelStruct extends FFFirebaseStruct {
   CheckinDataModelStruct({
     String? time,
     int? count,
+    FirestoreUtilData firestoreUtilData = const FirestoreUtilData(),
   })  : _time = time,
-        _count = count;
+        _count = count,
+        super(firestoreUtilData);
 
   // "time" field.
   String? _time;
@@ -87,8 +90,82 @@ class CheckinDataModelStruct extends BaseStruct {
 CheckinDataModelStruct createCheckinDataModelStruct({
   String? time,
   int? count,
+  Map<String, dynamic> fieldValues = const {},
+  bool clearUnsetFields = true,
+  bool create = false,
+  bool delete = false,
 }) =>
     CheckinDataModelStruct(
       time: time,
       count: count,
+      firestoreUtilData: FirestoreUtilData(
+        clearUnsetFields: clearUnsetFields,
+        create: create,
+        delete: delete,
+        fieldValues: fieldValues,
+      ),
     );
+
+CheckinDataModelStruct? updateCheckinDataModelStruct(
+  CheckinDataModelStruct? checkinDataModel, {
+  bool clearUnsetFields = true,
+  bool create = false,
+}) =>
+    checkinDataModel
+      ?..firestoreUtilData = FirestoreUtilData(
+        clearUnsetFields: clearUnsetFields,
+        create: create,
+      );
+
+void addCheckinDataModelStructData(
+  Map<String, dynamic> firestoreData,
+  CheckinDataModelStruct? checkinDataModel,
+  String fieldName, [
+  bool forFieldValue = false,
+]) {
+  firestoreData.remove(fieldName);
+  if (checkinDataModel == null) {
+    return;
+  }
+  if (checkinDataModel.firestoreUtilData.delete) {
+    firestoreData[fieldName] = FieldValue.delete();
+    return;
+  }
+  final clearFields =
+      !forFieldValue && checkinDataModel.firestoreUtilData.clearUnsetFields;
+  if (clearFields) {
+    firestoreData[fieldName] = <String, dynamic>{};
+  }
+  final checkinDataModelData =
+      getCheckinDataModelFirestoreData(checkinDataModel, forFieldValue);
+  final nestedData =
+      checkinDataModelData.map((k, v) => MapEntry('$fieldName.$k', v));
+
+  final mergeFields = checkinDataModel.firestoreUtilData.create || clearFields;
+  firestoreData
+      .addAll(mergeFields ? mergeNestedFields(nestedData) : nestedData);
+}
+
+Map<String, dynamic> getCheckinDataModelFirestoreData(
+  CheckinDataModelStruct? checkinDataModel, [
+  bool forFieldValue = false,
+]) {
+  if (checkinDataModel == null) {
+    return {};
+  }
+  final firestoreData = mapToFirestore(checkinDataModel.toMap());
+
+  // Add any Firestore field values
+  mapToFirestore(checkinDataModel.firestoreUtilData.fieldValues)
+      .forEach((k, v) => firestoreData[k] = v);
+
+  return forFieldValue ? mergeNestedFields(firestoreData) : firestoreData;
+}
+
+List<Map<String, dynamic>> getCheckinDataModelListFirestoreData(
+  List<CheckinDataModelStruct>? checkinDataModels,
+) =>
+    checkinDataModels
+        ?.map((e) => getCheckinDataModelFirestoreData(e, true))
+        .toList() ??
+    [];

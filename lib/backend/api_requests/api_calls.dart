@@ -112,7 +112,7 @@ class CheckinStreamAPICall {
   static Future<ApiCallResponse> call() async {
     return ApiManager.instance.makeApiCall(
       callName: 'checkinStreamAPI',
-      apiUrl: 'https://2939fba48e0f.ngrok-free.app/api/v1/stream/checkin',
+      apiUrl: 'https://90ef-49-231-1-82.ngrok-free.app/api/v1/stream/checkin',
       callType: ApiCallType.GET,
       headers: {},
       params: {},
@@ -139,7 +139,7 @@ class StreamBlockfinAPICall {
     return ApiManager.instance.makeApiCall(
       callName: 'streamBlockfinAPI',
       apiUrl:
-          'https://2939fba48e0f.ngrok-free.app/api/stream/v1/stream/blockfin',
+          'https://90ef-49-231-1-82.ngrok-free.app/api/stream/v1/stream/blockfin',
       callType: ApiCallType.GET,
       headers: {},
       params: {
@@ -182,7 +182,7 @@ class GetOnboadingUrlAPICall {
     return ApiManager.instance.makeApiCall(
       callName: 'getOnboadingUrlAPI',
       apiUrl:
-          'https://2939fba48e0f.ngrok-free.app/api/blockfin/v1/get/onboarding',
+          'https://90ef-49-231-1-82.ngrok-free.app/api/blockfin/v1/get/onboarding',
       callType: ApiCallType.POST,
       headers: {},
       params: {},
@@ -222,6 +222,70 @@ class GetOnboadingUrlAPICall {
       ));
 }
 
+class CustomerSearchApiCall {
+  static Future<ApiCallResponse> call({
+    String? customerId = '',
+    String? refId = '',
+  }) async {
+    final ffApiRequestBody = '''
+{
+  "customer_id": "${escapeStringForJson(customerId)}",
+  "ref_id": "${escapeStringForJson(refId)}"
+}''';
+    return ApiManager.instance.makeApiCall(
+      callName: 'CustomerSearchApi',
+      apiUrl: 'https://90ef-49-231-1-82.ngrok-free.app/api/customers-search',
+      callType: ApiCallType.POST,
+      headers: {
+        'Authorization': 'Bearer JhbGciOiJSUzI1NiIsImtpZ',
+        'Content-Type': 'application/json',
+      },
+      params: {},
+      body: ffApiRequestBody,
+      bodyType: BodyType.JSON,
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
+    );
+  }
+}
+
+class OcrDocumentApiCall {
+  static Future<ApiCallResponse> call({
+    String? customerId = '',
+    String? type = '',
+    String? key = '',
+    FFUploadedFile? file,
+  }) async {
+    return ApiManager.instance.makeApiCall(
+      callName: 'OcrDocumentApi',
+      apiUrl:
+          'https://90ef-49-231-1-82.ngrok-free.app/api/process-registration',
+      callType: ApiCallType.POST,
+      headers: {
+        'Authorization': 'Bearer JhbGciOiJSUzI1NiIsImtpZ',
+        'Content-Type': 'application/json',
+      },
+      params: {
+        'file': file,
+        'type': type,
+        'key': key,
+        'customer_id': customerId,
+      },
+      bodyType: BodyType.MULTIPART,
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
+    );
+  }
+}
+
 class ApiPagingParams {
   int nextPageNumber = 0;
   int numItems = 0;
@@ -239,6 +303,9 @@ class ApiPagingParams {
 }
 
 String _toEncodable(dynamic item) {
+  if (item is DocumentReference) {
+    return item.path;
+  }
   return item;
 }
 

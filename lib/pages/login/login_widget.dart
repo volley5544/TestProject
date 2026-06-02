@@ -1,6 +1,5 @@
-import '/auth/custom_auth/auth_util.dart';
+import '/auth/firebase_auth/auth_util.dart';
 import '/backend/api_requests/api_calls.dart';
-import '/backend/schema/structs/index.dart';
 import '/backend/supabase/supabase.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -92,8 +91,6 @@ class _LoginWidgetState extends State<LoginWidget> {
                               borderRadius: BorderRadius.only(
                                 bottomLeft: Radius.circular(16.0),
                                 bottomRight: Radius.circular(16.0),
-                                topLeft: Radius.circular(0.0),
-                                topRight: Radius.circular(0.0),
                               ),
                             ),
                           ),
@@ -111,8 +108,6 @@ class _LoginWidgetState extends State<LoginWidget> {
                               borderRadius: BorderRadius.only(
                                 bottomLeft: Radius.circular(16.0),
                                 bottomRight: Radius.circular(16.0),
-                                topLeft: Radius.circular(0.0),
-                                topRight: Radius.circular(0.0),
                               ),
                             ),
                             alignment: AlignmentDirectional(-1.0, 0.0),
@@ -120,7 +115,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                               padding: EdgeInsetsDirectional.fromSTEB(
                                   24.0, 0.0, 0.0, 0.0),
                               child: Text(
-                                '${currentUserData?.fullname}',
+                                'brand.ai',
                                 style: FlutterFlowTheme.of(context)
                                     .displaySmall
                                     .override(
@@ -161,7 +156,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    '${currentUserData?.employeeId}',
+                                    '',
                                     style: FlutterFlowTheme.of(context)
                                         .headlineLarge
                                         .override(
@@ -190,7 +185,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                                     padding: EdgeInsetsDirectional.fromSTEB(
                                         0.0, 12.0, 0.0, 24.0),
                                     child: Text(
-                                      '${currentAuthenticationToken}',
+                                      '',
                                       style: FlutterFlowTheme.of(context)
                                           .labelMedium
                                           .override(
@@ -509,12 +504,8 @@ class _LoginWidgetState extends State<LoginWidget> {
                                             safeSetState(() {});
                                           return;
                                         }
-                                        _model.insertProfile =
+                                        _model.insertRowSupabase =
                                             await ProfilesTable().insert({
-                                          'id': LoginAPICall.employeeId(
-                                            (_model.loginApiOurput?.jsonBody ??
-                                                ''),
-                                          ),
                                           'username': _model
                                               .emailAddressTextController.text,
                                           'display_name': _model
@@ -529,31 +520,17 @@ class _LoginWidgetState extends State<LoginWidget> {
                                         });
                                         _shouldSetState = true;
                                         GoRouter.of(context).prepareAuthEvent();
-                                        await authManager.signIn(
-                                          authenticationToken:
-                                              LoginAPICall.accessToken(
-                                            (_model.loginApiOurput?.jsonBody ??
-                                                ''),
-                                          ),
-                                          authUid: LoginAPICall.employeeId(
-                                            (_model.loginApiOurput?.jsonBody ??
-                                                ''),
-                                          ),
-                                          userData: UserDataModelStruct(
-                                            fullname: LoginAPICall.fullname(
-                                              (_model.loginApiOurput
-                                                      ?.jsonBody ??
-                                                  ''),
-                                            ),
-                                            employeeId: LoginAPICall.employeeId(
-                                              (_model.loginApiOurput
-                                                      ?.jsonBody ??
-                                                  ''),
-                                            ),
-                                            profileImage: 'img',
-                                            dob: '1996-02-13',
-                                          ),
+
+                                        final user =
+                                            await authManager.signInWithEmail(
+                                          context,
+                                          _model
+                                              .emailAddressTextController.text,
+                                          _model.passwordTextController.text,
                                         );
+                                        if (user == null) {
+                                          return;
+                                        }
 
                                         context.goNamedAuth(
                                             HomePageWidget.routeName,
