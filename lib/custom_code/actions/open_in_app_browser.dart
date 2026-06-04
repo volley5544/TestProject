@@ -172,6 +172,12 @@ Future openInAppBrowser(
 
 class MyInAppBrowser extends inappWebview.InAppBrowser {
   @override
+  Future<PermissionResponse> onPermissionRequest(request) async {
+    return await PermissionResponse(
+        resources: request.resources, action: PermissionResponseAction.GRANT);
+  }
+
+  @override
   Future onBrowserCreated() async {
     print("Browser Created!");
   }
@@ -184,9 +190,6 @@ class MyInAppBrowser extends inappWebview.InAppBrowser {
   @override
   Future onLoadStop(url) async {
     print("Stopped $url");
-    if (url.toString().contains('testSuccessPage')) {
-      close(); // close webview
-    }
   }
 
   @override
@@ -200,11 +203,20 @@ class MyInAppBrowser extends inappWebview.InAppBrowser {
   }
 
   @override
-  void onDownloadStart(url) async {
+  void onDownloadStartRequest(url) async {
     print('onDownload');
-    final String _url_files = "$url";
+    print("${url.url}");
+    final String _url_files = "${url.url}";
 
     await launchURL(_url_files);
+  }
+
+  @override
+  Future<NavigationActionPolicy> shouldOverrideUrlLoading(
+      navigationAction) async {
+    print("\n\nOverride5544 ${navigationAction.request.url}\n\n");
+    // await launchURL(navigationAction.request.url.toString());
+    return NavigationActionPolicy.ALLOW;
   }
 
   @override

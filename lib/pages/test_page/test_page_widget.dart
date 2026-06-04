@@ -160,7 +160,6 @@ class _TestPageWidgetState extends State<TestPageWidget> {
         },
       );
       await requestPermission(cameraPermission);
-      await requestPermission(microphonePermission);
       await actions.openInAppBrowser(
         '',
         '${getJsonField(
