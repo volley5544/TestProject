@@ -62,8 +62,7 @@ class _TestPageWidgetState extends State<TestPageWidget> {
       _model.getOnboardingOutput = await GetOnboadingUrlAPICall.call(
         customerId:
             'e794457865fbf41835cb6931c0829b88b7c8eaa65ee12c71096c3bfcb848c96f',
-        successUrl:
-            'https://test-project-biclc3.flutterflow.app/testSuccessPage',
+        successUrl: 'www.google.co.th',
         errorUrl: 'https://test-project-biclc3.flutterflow.app/testErrorPage',
         ekycFlowsList: [
           'ocr_front',
@@ -90,6 +89,9 @@ class _TestPageWidgetState extends State<TestPageWidget> {
             .map((m) => ResponseStreamMessage(message: m))
             .listen(
           (onMessageInput) async {
+            FFAppState().debugText =
+                '${onMessageInput.serverSentEvent.jsonData.toString()}';
+            safeSetState(() {});
             await showDialog(
               context: context,
               builder: (alertDialogContext) {
@@ -160,6 +162,7 @@ class _TestPageWidgetState extends State<TestPageWidget> {
         },
       );
       await requestPermission(cameraPermission);
+      await requestPermission(microphonePermission);
       await actions.openInAppBrowser(
         '',
         '${getJsonField(

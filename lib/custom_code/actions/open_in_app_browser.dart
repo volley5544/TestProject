@@ -45,7 +45,7 @@ Future openInAppBrowser(
         allowUniversalAccessFromFileURLs: true,
         javaScriptCanOpenWindowsAutomatically: true,
         useOnDownloadStart: true,
-        //useShouldOverrideUrlLoading: true,
+        useShouldOverrideUrlLoading: true,
         mediaPlaybackRequiresUserGesture: false,
         clearCache: true,
         useHybridComposition: true,
@@ -71,7 +71,7 @@ Future openInAppBrowser(
         allowUniversalAccessFromFileURLs: true,
         javaScriptCanOpenWindowsAutomatically: true,
         useOnDownloadStart: true,
-        //useShouldOverrideUrlLoading: true,
+        useShouldOverrideUrlLoading: true,
         mediaPlaybackRequiresUserGesture: false,
         clearCache: true,
         useHybridComposition: true,
@@ -83,7 +83,7 @@ Future openInAppBrowser(
   }
   await browser.openUrlRequest(
       urlRequest: inappWebview.URLRequest(
-          url: inappWebview.WebUri(encodedUrl),
+          url: inappWebview.WebUri('${encodedUrl}'),
           method: 'GET',
           headers: headers),
       settings: options);
@@ -172,9 +172,10 @@ Future openInAppBrowser(
 
 class MyInAppBrowser extends inappWebview.InAppBrowser {
   @override
-  Future<PermissionResponse> onPermissionRequest(request) async {
-    return await PermissionResponse(
-        resources: request.resources, action: PermissionResponseAction.GRANT);
+  Future<inappWebview.PermissionResponse> onPermissionRequest(request) async {
+    return await inappWebview.PermissionResponse(
+        resources: request.resources,
+        action: inappWebview.PermissionResponseAction.GRANT);
   }
 
   @override
@@ -212,11 +213,11 @@ class MyInAppBrowser extends inappWebview.InAppBrowser {
   }
 
   @override
-  Future<NavigationActionPolicy> shouldOverrideUrlLoading(
+  Future<inappWebview.NavigationActionPolicy> shouldOverrideUrlLoading(
       navigationAction) async {
     print("\n\nOverride5544 ${navigationAction.request.url}\n\n");
     // await launchURL(navigationAction.request.url.toString());
-    return NavigationActionPolicy.ALLOW;
+    return inappWebview.NavigationActionPolicy.ALLOW;
   }
 
   @override
