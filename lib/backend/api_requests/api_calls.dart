@@ -112,7 +112,7 @@ class CheckinStreamAPICall {
   static Future<ApiCallResponse> call() async {
     return ApiManager.instance.makeApiCall(
       callName: 'checkinStreamAPI',
-      apiUrl: 'https://90ef-49-231-1-82.ngrok-free.app/api/v1/stream/checkin',
+      apiUrl: 'https://f0da-49-231-1-82.ngrok-free.app/api/v1/stream/checkin',
       callType: ApiCallType.GET,
       headers: {},
       params: {},
@@ -139,7 +139,7 @@ class StreamBlockfinAPICall {
     return ApiManager.instance.makeApiCall(
       callName: 'streamBlockfinAPI',
       apiUrl:
-          'https://90ef-49-231-1-82.ngrok-free.app/api/stream/v1/stream/blockfin',
+          'https://f0da-49-231-1-82.ngrok-free.app/api/stream/v1/stream/blockfin',
       callType: ApiCallType.GET,
       headers: {},
       params: {
@@ -182,7 +182,7 @@ class GetOnboadingUrlAPICall {
     return ApiManager.instance.makeApiCall(
       callName: 'getOnboadingUrlAPI',
       apiUrl:
-          'https://90ef-49-231-1-82.ngrok-free.app/api/blockfin/v1/get/onboarding',
+          'https://f0da-49-231-1-82.ngrok-free.app/api/blockfin/v1/get/onboarding',
       callType: ApiCallType.POST,
       headers: {},
       params: {},
@@ -234,7 +234,7 @@ class CustomerSearchApiCall {
 }''';
     return ApiManager.instance.makeApiCall(
       callName: 'CustomerSearchApi',
-      apiUrl: 'https://90ef-49-231-1-82.ngrok-free.app/api/customers-search',
+      apiUrl: 'https://f0da-49-231-1-82.ngrok-free.app/api/customers-search',
       callType: ApiCallType.POST,
       headers: {
         'Authorization': 'Bearer JhbGciOiJSUzI1NiIsImtpZ',
@@ -263,7 +263,7 @@ class OcrDocumentApiCall {
     return ApiManager.instance.makeApiCall(
       callName: 'OcrDocumentApi',
       apiUrl:
-          'https://90ef-49-231-1-82.ngrok-free.app/api/process-registration',
+          'https://f0da-49-231-1-82.ngrok-free.app/api/process-registration',
       callType: ApiCallType.POST,
       headers: {
         'Authorization': 'Bearer JhbGciOiJSUzI1NiIsImtpZ',
