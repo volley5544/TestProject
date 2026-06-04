@@ -62,7 +62,8 @@ class _TestPageWidgetState extends State<TestPageWidget> {
       _model.getOnboardingOutput = await GetOnboadingUrlAPICall.call(
         customerId:
             'e794457865fbf41835cb6931c0829b88b7c8eaa65ee12c71096c3bfcb848c96f',
-        successUrl: 'https://test-project-biclc3.flutterflow.app/testPage',
+        successUrl:
+            'https://test-project-biclc3.flutterflow.app/testSuccessPage',
         errorUrl: 'https://test-project-biclc3.flutterflow.app/testErrorPage',
         ekycFlowsList: [
           'ocr_front',
