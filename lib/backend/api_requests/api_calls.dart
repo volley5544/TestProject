@@ -10,6 +10,87 @@ export 'api_manager.dart' show ApiCallResponse;
 
 const _kPrivateApiFunctionName = 'ffPrivateApiCall';
 
+/// Start thai id api Group Code
+
+class ThaiIdApiGroup {
+  static String getBaseUrl() => 'https://c0f7-49-231-1-82.ngrok-free.app';
+  static Map<String, String> headers = {
+    'x-api-key':
+        '2f0eb52722ecbf228a4e44d9e14c600b9c4b2f65020484300839e799f58177b0',
+  };
+  static AuththaidlinkCall auththaidlinkCall = AuththaidlinkCall();
+  static AuthThaidStatusSessionIdCall authThaidStatusSessionIdCall =
+      AuthThaidStatusSessionIdCall();
+}
+
+class AuththaidlinkCall {
+  Future<ApiCallResponse> call() async {
+    final baseUrl = ThaiIdApiGroup.getBaseUrl();
+
+    return ApiManager.instance.makeApiCall(
+      callName: 'auththaidlink',
+      apiUrl: '${baseUrl}/auth/thaid/link',
+      callType: ApiCallType.GET,
+      headers: {
+        'x-api-key':
+            '2f0eb52722ecbf228a4e44d9e14c600b9c4b2f65020484300839e799f58177b0',
+      },
+      params: {},
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
+    );
+  }
+
+  String? url(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.url''',
+      ));
+  String? sessionId(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.sessionId''',
+      ));
+}
+
+class AuthThaidStatusSessionIdCall {
+  Future<ApiCallResponse> call({
+    String? sessionId = '',
+  }) async {
+    final baseUrl = ThaiIdApiGroup.getBaseUrl();
+
+    return ApiManager.instance.makeApiCall(
+      callName: 'auth thaid status session id',
+      apiUrl: '${baseUrl}/auth/thaid/status/${sessionId}',
+      callType: ApiCallType.GET,
+      headers: {
+        'x-api-key':
+            '2f0eb52722ecbf228a4e44d9e14c600b9c4b2f65020484300839e799f58177b0',
+      },
+      params: {},
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
+    );
+  }
+
+  String? status(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.status''',
+      ));
+  dynamic user(dynamic response) => getJsonField(
+        response,
+        r'''$.user''',
+      );
+}
+
+/// End thai id api Group Code
+
 class LoginAPICall {
   static Future<ApiCallResponse> call({
     String? username = '',

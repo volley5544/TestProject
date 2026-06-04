@@ -6,6 +6,10 @@ import 'package:flutter/material.dart';
 class TestPageModel extends FlutterFlowModel<TestPageWidget> {
   ///  State fields for stateful widgets in this page.
 
+  // Stores action output result for [Backend Call - API (auththaidlink)] action in TestPage widget.
+  ApiCallResponse? getOnboardingOutput2;
+  // Stores action output result for [Backend Call - API (auth thaid status session id)] action in TestPage widget.
+  ApiCallResponse? getThaiIdData;
   // Stores action output result for [Backend Call - API (getOnboadingUrlAPI)] action in TestPage widget.
   ApiCallResponse? getOnboardingOutput;
   // Stores action output result for [Backend Call - API (streamBlockfinAPI)] action in TestPage widget.

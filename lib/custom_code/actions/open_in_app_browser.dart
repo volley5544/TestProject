@@ -216,6 +216,24 @@ class MyInAppBrowser extends inappWebview.InAppBrowser {
   Future<inappWebview.NavigationActionPolicy> shouldOverrideUrlLoading(
       navigationAction) async {
     print("\n\nOverride5544 ${navigationAction.request.url}\n\n");
+    final url = navigationAction.request.url.toString();
+
+    print('URL: $url');
+
+    if (url.contains('testSuccessPage')) {
+      // Extract parameters
+      // final uri = Uri.parse(url);
+      //
+      // final code = uri.queryParameters['code'];
+      // final token = uri.queryParameters['token'];
+
+      // print('code: $code');
+
+      // Close browser
+      await close();
+
+      return inappWebview.NavigationActionPolicy.CANCEL;
+    }
     // await launchURL(navigationAction.request.url.toString());
     return inappWebview.NavigationActionPolicy.ALLOW;
   }

@@ -35,6 +35,103 @@ class _TestPageWidgetState extends State<TestPageWidget> {
 
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
+      if (true) {
+        showDialog(
+          context: context,
+          builder: (dialogContext) {
+            return Dialog(
+              elevation: 0,
+              insetPadding: EdgeInsets.zero,
+              backgroundColor: Colors.transparent,
+              alignment: AlignmentDirectional(0.0, 0.0)
+                  .resolve(Directionality.of(context)),
+              child: GestureDetector(
+                onTap: () {
+                  FocusScope.of(dialogContext).unfocus();
+                  FocusManager.instance.primaryFocus?.unfocus();
+                },
+                child: Container(
+                  height: double.infinity,
+                  width: double.infinity,
+                  child: LoadingWidget(),
+                ),
+              ),
+            );
+          },
+        );
+
+        _model.getOnboardingOutput2 =
+            await ThaiIdApiGroup.auththaidlinkCall.call();
+
+        Navigator.pop(context);
+        await showDialog(
+          context: context,
+          builder: (alertDialogContext) {
+            return AlertDialog(
+              content: Text('${getJsonField(
+                (_model.getOnboardingOutput2?.jsonBody ?? ''),
+                r'''$.url''',
+              ).toString()}'),
+              actions: [
+                TextButton(
+                  onPressed: () => Navigator.pop(alertDialogContext),
+                  child: Text('Ok'),
+                ),
+              ],
+            );
+          },
+        );
+        await showDialog(
+          context: context,
+          builder: (alertDialogContext) {
+            return AlertDialog(
+              content: Text('${getJsonField(
+                (_model.getOnboardingOutput2?.jsonBody ?? ''),
+                r'''$.sessionId''',
+              ).toString()}'),
+              actions: [
+                TextButton(
+                  onPressed: () => Navigator.pop(alertDialogContext),
+                  child: Text('Ok'),
+                ),
+              ],
+            );
+          },
+        );
+        await requestPermission(cameraPermission);
+        await requestPermission(microphonePermission);
+        await actions.openInAppBrowser(
+          '',
+          '${getJsonField(
+            (_model.getOnboardingOutput2?.jsonBody ?? ''),
+            r'''$.url''',
+          ).toString()}',
+          true,
+        );
+        _model.getThaiIdData =
+            await ThaiIdApiGroup.authThaidStatusSessionIdCall.call(
+          sessionId: '${getJsonField(
+            (_model.getOnboardingOutput2?.jsonBody ?? ''),
+            r'''$.sessionId''',
+          ).toString()}',
+        );
+
+        await showDialog(
+          context: context,
+          builder: (alertDialogContext) {
+            return AlertDialog(
+              content: Text((_model.getThaiIdData?.jsonBody ?? '').toString()),
+              actions: [
+                TextButton(
+                  onPressed: () => Navigator.pop(alertDialogContext),
+                  child: Text('Ok'),
+                ),
+              ],
+            );
+          },
+        );
+        return;
+      }
       showDialog(
         context: context,
         builder: (dialogContext) {
