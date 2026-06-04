@@ -32,6 +32,7 @@ class _TestSuccessPageWidgetState extends State<TestSuccessPageWidget> {
 
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
+      context.safePop();
       showDialog(
         context: context,
         builder: (dialogContext) {
