@@ -45,7 +45,7 @@ Future openInAppBrowser(
         allowUniversalAccessFromFileURLs: true,
         javaScriptCanOpenWindowsAutomatically: true,
         useOnDownloadStart: true,
-        useShouldOverrideUrlLoading: true,
+        //useShouldOverrideUrlLoading: true,
         mediaPlaybackRequiresUserGesture: false,
         clearCache: true,
         useHybridComposition: true,
