@@ -1,7 +1,7 @@
 import '/components/loading_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/upload_data.dart';
+import '/custom_code/actions/index.dart' as actions;
 import '/flutter_flow/custom_functions.dart' as functions;
 import '/index.dart';
 import 'package:flutter/material.dart';
@@ -152,44 +152,11 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                           hoverColor: Colors.transparent,
                           highlightColor: Colors.transparent,
                           onTap: () async {
-                            final selectedMedia = await selectMedia(
-                              maxWidth: 1920.00,
-                              maxHeight: 1920.00,
-                              imageQuality: 50,
-                              multiImage: false,
+                            await actions.openInAppBrowser(
+                              '',
+                              'https://c0f7-49-231-1-82.ngrok-free.app',
+                              true,
                             );
-                            if (selectedMedia != null &&
-                                selectedMedia.every((m) => validateFileFormat(
-                                    m.storagePath, context))) {
-                              safeSetState(() =>
-                                  _model.isDataUploading_uploadDataXwk = true);
-                              var selectedUploadedFiles = <FFUploadedFile>[];
-
-                              try {
-                                selectedUploadedFiles = selectedMedia
-                                    .map((m) => FFUploadedFile(
-                                          name: m.storagePath.split('/').last,
-                                          bytes: m.bytes,
-                                          height: m.dimensions?.height,
-                                          width: m.dimensions?.width,
-                                          blurHash: m.blurHash,
-                                          originalFilename: m.originalFilename,
-                                        ))
-                                    .toList();
-                              } finally {
-                                _model.isDataUploading_uploadDataXwk = false;
-                              }
-                              if (selectedUploadedFiles.length ==
-                                  selectedMedia.length) {
-                                safeSetState(() {
-                                  _model.uploadedLocalFile_uploadDataXwk =
-                                      selectedUploadedFiles.first;
-                                });
-                              } else {
-                                safeSetState(() {});
-                                return;
-                              }
-                            }
                           },
                           child: Container(
                             width: 100.0,
@@ -317,14 +284,11 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                       ),
                     ],
                   ),
-                  if ((_model.uploadedLocalFile_uploadDataXwk.bytes
-                              ?.isNotEmpty ??
-                          false))
+                  if (false)
                     ClipRRect(
                       borderRadius: BorderRadius.circular(8.0),
-                      child: Image.memory(
-                        _model.uploadedLocalFile_uploadDataXwk.bytes ??
-                            Uint8List.fromList([]),
+                      child: Image.network(
+                        'https://picsum.photos/seed/581/600',
                         width: 200.0,
                         height: 200.0,
                         fit: BoxFit.cover,

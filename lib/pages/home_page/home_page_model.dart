@@ -15,12 +15,6 @@ class HomePageModel extends FlutterFlowModel<HomePageWidget> {
 
   String? text;
 
-  ///  State fields for stateful widgets in this page.
-
-  bool isDataUploading_uploadDataXwk = false;
-  FFUploadedFile uploadedLocalFile_uploadDataXwk =
-      FFUploadedFile(bytes: Uint8List.fromList([]), originalFilename: '');
-
   @override
   void initState(BuildContext context) {}
 
