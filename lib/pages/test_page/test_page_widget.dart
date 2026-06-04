@@ -142,6 +142,23 @@ class _TestPageWidgetState extends State<TestPageWidget> {
       }
 
       Navigator.pop(context);
+      await showDialog(
+        context: context,
+        builder: (alertDialogContext) {
+          return AlertDialog(
+            content: Text('${getJsonField(
+              (_model.getOnboardingOutput?.jsonBody ?? ''),
+              r'''$.data.onboardingUrl''',
+            ).toString()}'),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.pop(alertDialogContext),
+                child: Text('Ok'),
+              ),
+            ],
+          );
+        },
+      );
       await requestPermission(cameraPermission);
       await actions.openInAppBrowser(
         '',
