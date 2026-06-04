@@ -1,4 +1,3 @@
-import '/backend/api_requests/api_calls.dart';
 import '/backend/backend.dart';
 import '/backend/schema/structs/index.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -12,11 +11,6 @@ class TestSuccessPageModel extends FlutterFlowModel<TestSuccessPageWidget> {
   void updateCheckinDataStruct(Function(CheckinDataModelStruct) updateFn) {
     updateFn(checkinData ??= CheckinDataModelStruct());
   }
-
-  ///  State fields for stateful widgets in this page.
-
-  // Stores action output result for [Backend Call - API (CustomerSearchApi)] action in TestSuccessPage widget.
-  ApiCallResponse? customerSearchApiOutput;
 
   @override
   void initState(BuildContext context) {}
