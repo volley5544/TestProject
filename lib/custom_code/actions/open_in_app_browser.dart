@@ -240,20 +240,21 @@ class MyInAppBrowser extends inappWebview.InAppBrowser {
       await close();
 
       return inappWebview.NavigationActionPolicy.CANCEL;
-    } else if (url.contains('auth/thaid/callback')) {
-      // Extract parameters
-      // final uri = Uri.parse(url);
-      //
-      // final code = uri.queryParameters['code'];
-      // final token = uri.queryParameters['token'];
-
-      // print('code: $code');
-
-      // Close browser
-      await close();
-
-      return inappWebview.NavigationActionPolicy.CANCEL;
     }
+    // else if (url.contains('auth/thaid/callback')) {
+    //   // Extract parameters
+    //   // final uri = Uri.parse(url);
+    //   //
+    //   // final code = uri.queryParameters['code'];
+    //   // final token = uri.queryParameters['token'];
+
+    //   // print('code: $code');
+
+    //   // Close browser
+    //   await close();
+
+    //   return inappWebview.NavigationActionPolicy.CANCEL;
+    // }
 
     // await launchURL(navigationAction.request.url.toString());
     return inappWebview.NavigationActionPolicy.ALLOW;
