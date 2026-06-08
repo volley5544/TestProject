@@ -13,6 +13,7 @@ import 'package:flutter/material.dart';
 import 'dart:io';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart' as inappWebview;
 import 'package:http/http.dart' as http;
+import 'dart:async';
 
 Future openInAppBrowser(
     String? token, String? tableauURL, bool? isOpenAndroidBrowser) async {
@@ -25,8 +26,9 @@ Future openInAppBrowser(
   print('tavleauUrl : ${tableauURL}');
   //if (Platform.isAndroid && isOpenAndroidBrowser!) {
   WidgetsFlutterBinding.ensureInitialized();
+  final completer = Completer<void>();
 
-  final MyInAppBrowser browser = new MyInAppBrowser();
+  final MyInAppBrowser browser = new MyInAppBrowser(completer);
   // await inappWebview.AndroidInAppWebViewController
   //     .setWebContentsDebuggingEnabled(true);
   var options;
@@ -87,7 +89,8 @@ Future openInAppBrowser(
           method: 'GET',
           headers: headers),
       settings: options);
-
+  await completer.future;
+  print('Done browwwser');
   // use here
   // final ChromeSafariBrowser browser = ChromeSafariBrowser();
 
@@ -171,6 +174,10 @@ Future openInAppBrowser(
 }
 
 class MyInAppBrowser extends inappWebview.InAppBrowser {
+  final Completer<void> completer;
+
+  MyInAppBrowser(this.completer);
+
   @override
   Future<inappWebview.PermissionResponse> onPermissionRequest(request) async {
     return await inappWebview.PermissionResponse(
@@ -254,6 +261,9 @@ class MyInAppBrowser extends inappWebview.InAppBrowser {
 
   @override
   void onExit() {
+    if (!completer.isCompleted) {
+      completer.complete();
+    }
     print("Browser closed!");
   }
 
