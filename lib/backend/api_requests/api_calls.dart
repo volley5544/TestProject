@@ -13,7 +13,7 @@ const _kPrivateApiFunctionName = 'ffPrivateApiCall';
 /// Start thai id api Group Code
 
 class ThaiIdApiGroup {
-  static String getBaseUrl() => 'https://c0f7-49-231-1-82.ngrok-free.app';
+  static String getBaseUrl() => 'https://dev.swpfin.com:8091';
   static Map<String, String> headers = {
     'x-api-key':
         '2f0eb52722ecbf228a4e44d9e14c600b9c4b2f65020484300839e799f58177b0',
