@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'serialization_util.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '../../flutter_flow/flutter_flow_util.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -116,8 +117,16 @@ final parametersBuilderMap =
     <String, Future<ParameterData> Function(Map<String, dynamic>)>{
   'HomePage': ParameterData.none(),
   'login': ParameterData.none(),
-  'TestPage': ParameterData.none(),
-  'TestSuccessPage': ParameterData.none(),
+  'TestPage': (data) async => ParameterData(
+        allParams: {
+          'sessionId': getParameter<String>(data, 'sessionId'),
+        },
+      ),
+  'TestSuccessPage': (data) async => ParameterData(
+        allParams: {
+          'sessionId': getParameter<String>(data, 'sessionId'),
+        },
+      ),
   'TestErrorPage': ParameterData.none(),
 };
 

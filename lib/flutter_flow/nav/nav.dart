@@ -103,12 +103,22 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
             FFRoute(
               name: TestPageWidget.routeName,
               path: TestPageWidget.routePath,
-              builder: (context, params) => TestPageWidget(),
+              builder: (context, params) => TestPageWidget(
+                sessionId: params.getParam(
+                  'sessionId',
+                  ParamType.String,
+                ),
+              ),
             ),
             FFRoute(
               name: TestSuccessPageWidget.routeName,
               path: TestSuccessPageWidget.routePath,
-              builder: (context, params) => TestSuccessPageWidget(),
+              builder: (context, params) => TestSuccessPageWidget(
+                sessionId: params.getParam(
+                  'sessionId',
+                  ParamType.String,
+                ),
+              ),
             ),
             FFRoute(
               name: TestErrorPageWidget.routeName,

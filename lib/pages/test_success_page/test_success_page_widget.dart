@@ -1,3 +1,4 @@
+import '/backend/api_requests/api_calls.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'dart:async';
@@ -9,7 +10,12 @@ import 'test_success_page_model.dart';
 export 'test_success_page_model.dart';
 
 class TestSuccessPageWidget extends StatefulWidget {
-  const TestSuccessPageWidget({super.key});
+  const TestSuccessPageWidget({
+    super.key,
+    this.sessionId,
+  });
+
+  final String? sessionId;
 
   static String routeName = 'TestSuccessPage';
   static String routePath = 'testSuccessPage';
@@ -30,7 +36,6 @@ class _TestSuccessPageWidgetState extends State<TestSuccessPageWidget> {
 
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
-      context.safePop();
       await showDialog(
         context: context,
         builder: (alertDialogContext) {
@@ -47,6 +52,25 @@ class _TestSuccessPageWidgetState extends State<TestSuccessPageWidget> {
       );
       unawaited(
         () async {}(),
+      );
+      _model.getThaiIdData =
+          await ThaiIdApiGroup.authThaidStatusSessionIdCall.call(
+        sessionId: '${widget.sessionId}',
+      );
+
+      await showDialog(
+        context: context,
+        builder: (alertDialogContext) {
+          return AlertDialog(
+            content: Text((_model.getThaiIdData?.jsonBody ?? '').toString()),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.pop(alertDialogContext),
+                child: Text('Ok'),
+              ),
+            ],
+          );
+        },
       );
     });
 

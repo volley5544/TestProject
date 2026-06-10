@@ -13,7 +13,12 @@ import 'test_page_model.dart';
 export 'test_page_model.dart';
 
 class TestPageWidget extends StatefulWidget {
-  const TestPageWidget({super.key});
+  const TestPageWidget({
+    super.key,
+    this.sessionId,
+  });
+
+  final String? sessionId;
 
   static String routeName = 'TestPage';
   static String routePath = 'testPage';
