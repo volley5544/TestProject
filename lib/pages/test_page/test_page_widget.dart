@@ -105,11 +105,13 @@ class _TestPageWidgetState extends State<TestPageWidget> {
         );
         await requestPermission(cameraPermission);
         await requestPermission(microphonePermission);
-        await actions.urlLauncherExternalApp(
+        await actions.openInAppBrowser(
+          '',
           '${getJsonField(
             (_model.getOnboardingOutput2?.jsonBody ?? ''),
             r'''$.url''',
           ).toString()}',
+          true,
         );
         _model.getThaiIdData =
             await ThaiIdApiGroup.authThaidStatusSessionIdCall.call(
