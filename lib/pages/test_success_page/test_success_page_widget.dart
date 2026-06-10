@@ -12,7 +12,7 @@ class TestSuccessPageWidget extends StatefulWidget {
   const TestSuccessPageWidget({super.key});
 
   static String routeName = 'TestSuccessPage';
-  static String routePath = '/testSuccessPage';
+  static String routePath = 'testSuccessPage';
 
   @override
   State<TestSuccessPageWidget> createState() => _TestSuccessPageWidgetState();

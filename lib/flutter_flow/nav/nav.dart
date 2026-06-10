@@ -88,33 +88,35 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           path: '/',
           builder: (context, _) =>
               appStateNotifier.loggedIn ? HomePageWidget() : LoginWidget(),
+          routes: [
+            FFRoute(
+              name: HomePageWidget.routeName,
+              path: HomePageWidget.routePath,
+              requireAuth: true,
+              builder: (context, params) => HomePageWidget(),
+            ),
+            FFRoute(
+              name: LoginWidget.routeName,
+              path: LoginWidget.routePath,
+              builder: (context, params) => LoginWidget(),
+            ),
+            FFRoute(
+              name: TestPageWidget.routeName,
+              path: TestPageWidget.routePath,
+              builder: (context, params) => TestPageWidget(),
+            ),
+            FFRoute(
+              name: TestSuccessPageWidget.routeName,
+              path: TestSuccessPageWidget.routePath,
+              builder: (context, params) => TestSuccessPageWidget(),
+            ),
+            FFRoute(
+              name: TestErrorPageWidget.routeName,
+              path: TestErrorPageWidget.routePath,
+              builder: (context, params) => TestErrorPageWidget(),
+            )
+          ].map((r) => r.toRoute(appStateNotifier)).toList(),
         ),
-        FFRoute(
-          name: HomePageWidget.routeName,
-          path: HomePageWidget.routePath,
-          requireAuth: true,
-          builder: (context, params) => HomePageWidget(),
-        ),
-        FFRoute(
-          name: LoginWidget.routeName,
-          path: LoginWidget.routePath,
-          builder: (context, params) => LoginWidget(),
-        ),
-        FFRoute(
-          name: TestPageWidget.routeName,
-          path: TestPageWidget.routePath,
-          builder: (context, params) => TestPageWidget(),
-        ),
-        FFRoute(
-          name: TestSuccessPageWidget.routeName,
-          path: TestSuccessPageWidget.routePath,
-          builder: (context, params) => TestSuccessPageWidget(),
-        ),
-        FFRoute(
-          name: TestErrorPageWidget.routeName,
-          path: TestErrorPageWidget.routePath,
-          builder: (context, params) => TestErrorPageWidget(),
-        )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );
 

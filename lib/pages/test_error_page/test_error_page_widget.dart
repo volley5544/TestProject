@@ -12,7 +12,7 @@ class TestErrorPageWidget extends StatefulWidget {
   const TestErrorPageWidget({super.key});
 
   static String routeName = 'TestErrorPage';
-  static String routePath = '/testErrorPage';
+  static String routePath = 'testErrorPage';
 
   @override
   State<TestErrorPageWidget> createState() => _TestErrorPageWidgetState();
