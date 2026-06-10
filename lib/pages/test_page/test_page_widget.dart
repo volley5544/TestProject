@@ -261,14 +261,10 @@ class _TestPageWidgetState extends State<TestPageWidget> {
       );
       await requestPermission(cameraPermission);
       await requestPermission(microphonePermission);
-      await actions.openInAppBrowser(
-        '',
-        '${getJsonField(
-          (_model.getOnboardingOutput?.jsonBody ?? ''),
-          r'''$.data.onboardingUrl''',
-        ).toString()}',
-        true,
-      );
+      await launchURL('${getJsonField(
+        (_model.getOnboardingOutput?.jsonBody ?? ''),
+        r'''$.data.onboardingUrl''',
+      ).toString()}');
     });
 
     WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
