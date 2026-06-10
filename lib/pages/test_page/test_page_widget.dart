@@ -4,7 +4,6 @@ import '/components/loading_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'dart:convert';
-import '/custom_code/actions/index.dart' as actions;
 import '/flutter_flow/permissions_util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -100,14 +99,10 @@ class _TestPageWidgetState extends State<TestPageWidget> {
         );
         await requestPermission(cameraPermission);
         await requestPermission(microphonePermission);
-        await actions.openInAppBrowser(
-          '',
-          '${getJsonField(
-            (_model.getOnboardingOutput2?.jsonBody ?? ''),
-            r'''$.url''',
-          ).toString()}',
-          true,
-        );
+        await launchURL('${getJsonField(
+          (_model.getOnboardingOutput2?.jsonBody ?? ''),
+          r'''$.url''',
+        ).toString()}');
         _model.getThaiIdData =
             await ThaiIdApiGroup.authThaidStatusSessionIdCall.call(
           sessionId: '${getJsonField(
